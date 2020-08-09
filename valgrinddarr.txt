@@ -1,0 +1,35 @@
+==4736== Memcheck, a memory error detector
+==4736== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4736== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==4736== Command: ./utilstest
+==4736== 
+Count: [1], Address: [0x4db6d30]
+Count: [2], Address: [0x4db7dc0]
+Count: [3], Address: [0x4db7e20]
+Count: [4], Address: [0x4db7e90]
+Count: [5], Address: [0x4db7f20]
+Count: [6], Address: [0x4db8000]
+Count: [7], Address: [0x4db8180]
+Count: [8], Address: [0x4db8440]
+Count: [9], Address: [0x4db8980]
+Count: [10], Address: [0x4db93c0]
+Data: [0]
+Data: [100]
+Data: [200]
+Data: [300]
+Data: [400]
+Data: [500]
+Data: [600]
+Data: [700]
+Data: [800]
+Data: [900]
+element at 5 is [200]
+==4736== 
+==4736== HEAP SUMMARY:
+==4736==     in use at exit: 0 bytes in 0 blocks
+==4736==   total heap usage: 14 allocs, 14 frees, 87,066 bytes allocated
+==4736== 
+==4736== All heap blocks were freed -- no leaks are possible
+==4736== 
+==4736== For lists of detected and suppressed errors, rerun with: -s
+==4736== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
