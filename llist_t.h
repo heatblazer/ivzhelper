@@ -4,8 +4,8 @@
 #define LLIST(T, N)                                                             \
     struct N##_node_t                                                           \
     {                                                                           \
-        T pData;                                                                \
         struct N##_node_t* next;                                                \
+        T pData;                                                                \
     };                                                                          \
                                                                                 \
     typedef struct                                                              \

@@ -61,7 +61,6 @@ void test_case_llist()
     if (item) {
         printf("[%d]\r\n", item->pData);
     }
-    getc(stdin);
 
     while (it) {
         printf("[%d]\r\n", it->pData);
@@ -99,8 +98,8 @@ void test_case_darray()
         printf("FOUND: [%s]\r\n", found2->data);
     }
 
-    getc(stdin);
 
     test_array_cleanup(&arr);
-
+    free(arr);
+    arr = NULL;
 }

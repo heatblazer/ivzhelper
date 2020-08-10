@@ -53,9 +53,10 @@ int main()
 
 int main(void)
 {
-
+    puts("test array");
     test_case_darray();
-  //  test_case_llist();
+    puts("\r\ntest list");
+    test_case_llist();
 }
 
 #endif
