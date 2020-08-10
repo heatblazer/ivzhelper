@@ -1,21 +1,34 @@
 #include "test_cases.h"
 #include "llist_t.h"
+#include "dynarray_t.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct str_t
+{
+    char data[80];
+} str_t;
 
 static int int_cmp_eq(int a, int b) {
     return  a == b;
 }
 
+static int str_cmp_eq(str_t a, str_t b) {
+    return  !strcmp(a.data, b.data);
+}
 
-LLIST(int, test_list, );
+static int str_cmp_contains(str_t a, str_t b) {
+    return  strstr(b.data, a.data)!=NULL;
+}
+
+LLIST(int, test_list);
+
+DARRAY(str_t, test_array, 100);
 
 void test_case_llist()
 {
-
 
     test_list_t* l = test_list_init();
 
@@ -58,4 +71,36 @@ void test_case_llist()
     test_list_clear(l);
     free(l);
     l = NULL;
+}
+
+void test_case_darray()
+{
+    test_array_t* arr = test_array_t_init();
+
+    int i;
+    for(i=0; i < 200; i++) {
+        str_t t = {{0}};
+        snprintf(t.data, sizeof(t.data), "TEST: [%d]\r\n", i);
+        test_array_add(t, arr);
+    }
+    str_t f, n ;
+    snprintf(f.data, sizeof(f.data), "TEST: [155]\r\n");
+    strcpy(n.data, "56");
+
+    str_t* found = test_array_find_if(f, arr, &str_cmp_eq);
+
+    str_t* found2 = test_array_find_if(n, arr, &str_cmp_contains);
+
+    if (found) {
+        printf("FOUND : [%s]\r\n", found->data);
+    }
+
+    if (found2) {
+        printf("FOUND: [%s]\r\n", found2->data);
+    }
+
+    getc(stdin);
+
+    test_array_cleanup(&arr);
+
 }

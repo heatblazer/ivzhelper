@@ -1,7 +1,7 @@
 #ifndef LLIST_T_H
 #define LLIST_T_H
 
-#define LLIST(T, N, MOD)                                                        \
+#define LLIST(T, N)                                                             \
     struct N##_node_t                                                           \
     {                                                                           \
         T pData;                                                                \

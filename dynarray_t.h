@@ -3,7 +3,7 @@
 #include <stdlib.h> /* malloc, calloc, realloc */
 
 //in case no initsize is 0 or less we will assert
-#define DARRAY(T, N, INITSIZE, MOD)                                 \
+#define DARRAY(T, N, INITSIZE)                                      \
 static const char __attribute__((unused))                           \
             N##_sassertsizeless[INITSIZE <=0 ? -1 : 1];             \
     typedef struct N##_t                                            \
@@ -55,7 +55,7 @@ static const char __attribute__((unused))                           \
                                                                     \
     static void N##_add(T item, N##_t* _this)                       \
         {                                                           \
-            N##_wiffull(_this);                                 \
+            N##_wiffull(_this);                                     \
             *(_this->pData+_this->count) = item;                    \
             _this->count++;                                         \
         }                                                           \
@@ -80,19 +80,20 @@ static const char __attribute__((unused))                           \
                                                                     \
     static void N##_add_at(T item, size_t idx, N##_t* _this)        \
     {                                                               \
-        N##_resizeto(_this, idx);                               \
+        N##_resizeto(_this, idx);                                   \
         *(_this->pData+idx) = item;                                 \
         _this->count++;                                             \
     }                                                               \
                                                                     \
-    static size_t N##find_if                                        \
+    static T* N##_find_if                                           \
         (T item, N##_t* _this, T##cmpfn cmp)                        \
     {                                                               \
         size_t i;                                                   \
         for(i=0; i < _this->count; i++) {                           \
             if (cmp(item, _this->pData[i]))                         \
-                return i;                                           \
+                return &_this->pData[i];                            \
         }                                                           \
+        return NULL;                                                \
     }
 
 #endif // DYNARRAY_T_H

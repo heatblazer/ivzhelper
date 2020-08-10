@@ -2,7 +2,7 @@
 #include "dynarray_t.h"
 #include <string.h>
 
-DARRAY(string_t, str_darray, 1000, )
+DARRAY(string_t, str_darray, 1000)
 
 /**
  * @brief
