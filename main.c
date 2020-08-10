@@ -1,30 +1,6 @@
-#include "utils.h"
-#include "dynarray_t.h"
-#include "llist_t.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define CCMD "dnf hist"
-
-// buffer for splitting
-DARRAY(string_t, str_darray, 1000, );
-
-DARRAY(str_darray_t, arr_of_arr, 1000, );
-
-
-
-//LLIST(int, test_list, );
-LLIST(int, test_list, );
-
-static int int_cmp_eq(int a, int b) {
-    return  a == b;
-}
-
-
+#include "test_cases.h"
 
 #if 0
-
 int main()
 {
     size_t ii;
@@ -75,100 +51,10 @@ int main()
 }
 #else
 
-#if 0
-void delete_node(int v, test_list_node **list);
-void reverse(test_list_t* l);
-void delete_n_nodes(int n, int v, test_list_node* list);
-#endif
-
 int main(void)
 {
-    test_list_t* l = test_list_init();
-
-    test_list_put(5, l);
-    test_list_put(4, l);
-    test_list_put(3, l);
-    test_list_put(2, l);
-    test_list_put(1, l);
-    int i;
-    for(i=0; i < 5; i++)
-        test_list_put(10, l);
-
-    test_list_put(1313, l);
-
-    for(i=0; i < 5; i++)
-        test_list_put(100, l);
-
-
-
-    test_list_delete_node(1, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(2, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(3, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(100, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(10, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(100, &l->pHead, &int_cmp_eq);
-
-
-    struct test_list_node_t* it = test_list_begin(l);
-    struct test_list_node_t* item = test_list_find_if(1313, l, &int_cmp_eq);
-
-    if (item) {
-        printf("[%d]\r\n", item->pData);
-    }
-    getc(stdin);
-
-    while (it) {
-        printf("[%d]\r\n", it->pData);
-        it = it->next;
-    }
-
-
-    test_list_clear(l);
-}
-
-#if 0
-void delete_n_nodes(int n, int v, test_list_node* list)
-{
-    while (n-- > 0) {
-        delete_node(v, &list);
-    }
-}
-
-void delete_node(int v, test_list_node** list)
-{
-    test_list_node* cur = *list;
-
-    if (cur && cur->pData == v){
-        test_list_node* tmp = cur;
-        cur = cur->next;
-        free(tmp);
-        (*list) = cur;
-        return;
-    }
-    delete_node(v, &cur->next);
-}
-
-
-void reverse(test_list_t *l)
-{
-    typedef  test_list_node* tln;
-    test_list_node* begin = l->pHead;
-    test_list_node* current = l->pHead, *prev, *next;
-
-    while (current)
-    {
-        // 5, 4, 3, 2, 1
-        // 3, 4, 5, 2, 1
-        // 3, 2, 5, 4, 1
-        // 3, 2, 1, 4, 5
-        // 1, 2, 3, 4, 5
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-    l->pHead = prev;
+    test_case_llist();
 }
 
 #endif
-#endif
+
