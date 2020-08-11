@@ -6,7 +6,7 @@ typedef struct {
     char buff[1024];
 } string_t;
 
-DARRAY_OPQ(utils, str_darray);
+DARRAY_OPQ(utils, string_t, str_darray);
 
 size_t split_s(const char* src,const char* pattern,char** out);
 

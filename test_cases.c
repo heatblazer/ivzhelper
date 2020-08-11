@@ -1,5 +1,6 @@
 #include "test_cases.h"
 #include "llist_t.h"
+#include "adt_opq.h"
 #include "dynarray_t.h"
 #include "bheap_t.h"
 
@@ -25,6 +26,9 @@ static int str_cmp_contains(str_t a, str_t b) {
     return  strstr(b.data, a.data)!=NULL;
 }
 
+static int str_cmp_grt(str_t a, str_t b) {
+    return strcmp(a.data, b.data) == 0 ? 1 : 0;
+}
 
 
 
@@ -82,7 +86,7 @@ DARRAY(ivz, str_t, test_array, 100);
 
 void test_case_darray()
 {
-    ivz_test_array_t* arr = ivz_test_array_t_init();
+    ivz_test_array_t* arr = ivz_test_array_init();
 
     int i;
     for(i=0; i < 200; i++) {
@@ -118,6 +122,7 @@ BHEAP(nsivz, str_t, myheap, 100);
 void test_case_bheap()
 {
     struct nsivz_myheap_t* it = nsivz_myheap_init();
+
     int i;
     for(i=0; i < 10; i++) {
         str_t s = {{0}};
@@ -128,5 +133,9 @@ void test_case_bheap()
     for (i=0; i < it->array->count; i++) {
         printf("[%s]\r\n", nsivz_myheap_arr_getat(i, it->array)->data);
     }
+
+    nsivz_myheap_max_heapify(1, it, b);
+
+    nsivz_myheap_cleanup(&it);
 
 }

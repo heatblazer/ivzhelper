@@ -1,9 +1,11 @@
 #ifndef DYNARRAY_T_H
 #define DYNARRAY_T_H
+#include "adt_opq.h"
 #include <stdlib.h> /* malloc, calloc, realloc */
 
 //in case no initsize is 0 or less we will assert
 #define DARRAY(NS, T, N, INITSIZE)                                              \
+    CMP_FNS(NS, T, N);                                                          \
 static const char __attribute__((unused))                                       \
             NS##_##N##_sassertsizeless[INITSIZE <=0 ? -1 : 1];                  \
     typedef struct NS##_##N##_t                                                 \
@@ -14,7 +16,7 @@ static const char __attribute__((unused))                                       
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-    static NS##_##N##_t* NS##_##N##_t##_init(void)                              \
+    static NS##_##N##_t* NS##_##N##_init(void)                                  \
     {                                                                           \
         NS##_##N##_t* pN = (NS##_##N##_t*)malloc(sizeof(NS##_##N##_t));         \
         if (!pN) return NULL;                                                   \
