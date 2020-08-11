@@ -2,7 +2,7 @@
 #include "dynarray_t.h"
 #include <string.h>
 
-DARRAY(string_t, str_darray, 1000)
+DARRAY(utils, string_t, str_darray, 1000)
 
 /**
  * @brief
@@ -45,8 +45,7 @@ size_t split_s(const char* src,const char* pattern, char** out)
 }
 
 
-
-void split_ss(const char* src,const char* pattern, struct str_darray_t* vec)
+void split_ss(const char* src,const char* pattern, struct utils_str_darray_t* vec)
 {
     const size_t  pat_len = strlen(pattern);
     char* begin = (char*) src;
@@ -58,7 +57,7 @@ void split_ss(const char* src,const char* pattern, struct str_darray_t* vec)
             string_t s = {{0}};
             memcpy(n , next, size);
             memcpy(s.buff, n, size);
-            str_darray_add(s, vec);
+            utils_str_darray_add(s, vec);
             split_ss(begin+pat_len, pattern, vec);
         }
     } else {
@@ -68,8 +67,7 @@ void split_ss(const char* src,const char* pattern, struct str_darray_t* vec)
             string_t s = {{0}};
             memcpy(n, next, size);
             memcpy(s.buff, next, size);
-            str_darray_add(s, vec);
+            utils_str_darray_add(s, vec);
         }
     }
 }
-

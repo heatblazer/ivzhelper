@@ -55,8 +55,11 @@ int main(void)
 {
     puts("test array");
     test_case_darray();
-    puts("\r\ntest list");
-    test_case_llist();
+//    puts("\r\ntest list");
+//    test_case_llist();
+    puts("\r\nbheap test");
+    test_case_bheap();
+
 }
 
 #endif

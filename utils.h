@@ -6,11 +6,11 @@ typedef struct {
     char buff[1024];
 } string_t;
 
-DARRAY_OPQ(str_darray);
+DARRAY_OPQ(utils, str_darray);
 
 size_t split_s(const char* src,const char* pattern,char** out);
 
-void split_ss(const char* src,const char* pattern, struct str_darray_t* vec);
 
+void split_ss(const char* src,const char* pattern, struct utils_str_darray_t* vec);
 
 #endif // UTILS_H

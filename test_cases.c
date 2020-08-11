@@ -1,6 +1,8 @@
 #include "test_cases.h"
 #include "llist_t.h"
 #include "dynarray_t.h"
+#include "bheap_t.h"
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,9 +25,11 @@ static int str_cmp_contains(str_t a, str_t b) {
     return  strstr(b.data, a.data)!=NULL;
 }
 
-LLIST(int, test_list);
 
-DARRAY(str_t, test_array, 100);
+
+
+
+LLIST(int, test_list);
 
 void test_case_llist()
 {
@@ -72,23 +76,27 @@ void test_case_llist()
     l = NULL;
 }
 
+
+DARRAY(ivz, str_t, test_array, 100);
+
+
 void test_case_darray()
 {
-    test_array_t* arr = test_array_t_init();
+    ivz_test_array_t* arr = ivz_test_array_t_init();
 
     int i;
     for(i=0; i < 200; i++) {
         str_t t = {{0}};
         snprintf(t.data, sizeof(t.data), "TEST: [%d]\r\n", i);
-        test_array_add(t, arr);
+        ivz_test_array_add(t, arr);
     }
     str_t f, n ;
     snprintf(f.data, sizeof(f.data), "TEST: [155]\r\n");
     strcpy(n.data, "56");
 
-    str_t* found = test_array_find_if(f, arr, &str_cmp_eq);
+    str_t* found = ivz_test_array_find_if(f, arr, &str_cmp_eq);
 
-    str_t* found2 = test_array_find_if(n, arr, &str_cmp_contains);
+    str_t* found2 = ivz_test_array_find_if(n, arr, &str_cmp_contains);
 
     if (found) {
         printf("FOUND : [%s]\r\n", found->data);
@@ -98,8 +106,27 @@ void test_case_darray()
         printf("FOUND: [%s]\r\n", found2->data);
     }
 
-
-    test_array_cleanup(&arr);
+    ivz_test_array_cleanup(&arr);
     free(arr);
     arr = NULL;
+}
+
+
+BHEAP(nsivz, str_t, myheap, 100);
+
+
+void test_case_bheap()
+{
+    struct nsivz_myheap_t* it = nsivz_myheap_init();
+    int i;
+    for(i=0; i < 10; i++) {
+        str_t s = {{0}};
+        snprintf(s.data, sizeof(s.data), "test test[%d]\r\n", i);
+        nsivz_myheap_arr_add(s, it->array);
+    }
+
+    for (i=0; i < it->array->count; i++) {
+        printf("[%s]\r\n", nsivz_myheap_arr_getat(i, it->array)->data);
+    }
+
 }

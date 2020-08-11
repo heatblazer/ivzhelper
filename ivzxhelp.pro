@@ -10,6 +10,7 @@ SOURCES += \
 
 HEADERS += \
     adt_opq.h \
+    bheap_t.h \
     dynarray_t.h \
     llist_t.h \
     test_cases.h \

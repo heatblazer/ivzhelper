@@ -1,7 +1,7 @@
 #ifndef ADT_OPQ_H
 #define ADT_OPQ_H
 /* opaqua pointers to use in headers, declare structs when needed */
-#define DARRAY_OPQ(N) struct  N##_t;
+#define DARRAY_OPQ(NS, N) struct  NS##_##N##_t;
 
 #define NODE_OPQ(N)                                                            \
     struct N##_node_t;                                                          \
