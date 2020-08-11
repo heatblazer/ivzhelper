@@ -11,6 +11,7 @@
 
 typedef struct str_t
 {
+    int weight;
     char data[80];
 } str_t;
 
@@ -118,14 +119,36 @@ void test_case_darray()
 
 BHEAP(nsivz, str_t, myheap, 100);
 
+static int eq(const str_t a, const str_t b)
+{
+    return  a.weight == b.weight;
+}
+
+static int lt(const str_t a, const str_t b)
+{
+    return  a.weight < b.weight && !eq(a, b);
+}
+
+static int gt(const str_t a, const str_t b)
+{
+    return  a.weight > b.weight && !eq(a, b);
+}
+
+
 
 void test_case_bheap()
 {
     struct nsivz_myheap_t* it = nsivz_myheap_init();
 
+    nsivz_myheap_CMP_str_t b ;
+    b.nsivz_myheap__lt__ = &lt;
+    b.nsivz_myheap__gt__ = &gt;
+    b.nsivz_myheap__eq__ = &eq;
+
+
     int i;
     for(i=0; i < 10; i++) {
-        str_t s = {{0}};
+        str_t s = {i, {0}};
         snprintf(s.data, sizeof(s.data), "test test[%d]\r\n", i);
         nsivz_myheap_arr_add(s, it->array);
     }
@@ -134,7 +157,7 @@ void test_case_bheap()
         printf("[%s]\r\n", nsivz_myheap_arr_getat(i, it->array)->data);
     }
 
-    nsivz_myheap_max_heapify(1, it, b);
+    //nsivz_myheap_max_heapify(10, it, b);
 
     nsivz_myheap_cleanup(&it);
 
