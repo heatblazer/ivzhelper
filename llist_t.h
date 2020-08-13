@@ -1,42 +1,44 @@
 #ifndef LLIST_T_H
 #define LLIST_T_H
-
-#define LLIST(T, N)                                                             \
-    struct N##_node_t                                                           \
+#include "adt_opq.h"
+//NS##_##N##_t
+#define LLIST(NS, T, N)                                                         \
+    struct NS##_##N##_node_t                                                    \
     {                                                                           \
-        struct N##_node_t* next;                                                \
+        struct NS##_##N##_node_t* next;                                         \
         T pData;                                                                \
     };                                                                          \
                                                                                 \
     typedef struct                                                              \
     {                                                                           \
-        struct N##_node_t *pHead, *pTail;                                       \
+        struct NS##_##N##_node_t *pHead, *pTail;                                \
         unsigned int size;                                                      \
-    } N##_t;                                                                    \
+    } NS##_##N##_t;                                                             \
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-    static N##_t* N##_init(void)                                                \
+    static NS##_##N##_t* NS##_##N##_init(void)                                  \
     {                                                                           \
-        N##_t* pl = (N##_t*)calloc(1, sizeof(N##_t));                           \
+        NS##_##N##_t* pl = (NS##_##N##_t*)calloc(1, sizeof(NS##_##N##_t));      \
         if (pl)                                                                 \
             return pl;                                                          \
         return NULL;                                                            \
     }                                                                           \
                                                                                 \
-    static void N##_clear(N##_t* _this)                                         \
+    static void NS##_##N##_clear(NS##_##N##_t* _this)                           \
     {                                                                           \
         while(_this->pHead) {                                                   \
-            struct N##_node_t* tmp = _this->pHead;                              \
+            struct NS##_##N##_node_t* tmp = _this->pHead;                       \
             _this->pHead = _this->pHead->next;                                  \
             if (tmp) free(tmp);                                                 \
         }                                                                       \
     }                                                                           \
                                                                                 \
-    static void N##_put(T item, N##_t* _this)                                   \
+    static void NS##_##N##_put(T item, NS##_##N##_t* _this)                     \
     {                                                                           \
-        struct N##_node_t* nn =                                                 \
-                (struct N##_node_t*)malloc(sizeof(struct N##_node_t));          \
+        struct NS##_##N##_node_t* nn =                                          \
+                (struct NS##_##N##_node_t*)                                     \
+                    malloc(sizeof(struct NS##_##N##_node_t));                   \
         if (!nn) return;                                                        \
         nn->pData = item;                                                       \
         if (!_this->pHead) {                                                    \
@@ -49,29 +51,33 @@
         _this->size++;                                                          \
     }                                                                           \
                                                                                 \
-    static void N##_delete_node(T item, struct N##_node_t** node, T##cmpfn cmp) \
+    static void NS##_##N##_delete_node                                          \
+    (T item, struct NS##_##N##_node_t** node, T##cmpfn cmp)                     \
     {                                                                           \
-        struct N##_node_t* cur = *node;                                         \
+        struct NS##_##N##_node_t* cur = *node;                                  \
         if (cur && cmp(cur->pData,item)){                                       \
-            struct N##_node_t* tmp = cur;                                       \
+            struct NS##_##N##_node_t* tmp = cur;                                \
             cur = cur->next;                                                    \
             free(tmp); tmp = NULL;                                              \
             (*node) = cur;                                                      \
             return;                                                             \
         }                                                                       \
-        N##_delete_node(item, &((*node)->next), cmp);                           \
+        NS##_##N##_delete_node(item, &((*node)->next), cmp);                    \
     }                                                                           \
                                                                                 \
-    static struct N##_node_t* N##_begin(N##_t* _this) { return _this->pHead;}   \
+    static struct NS##_##N##_node_t* NS##_##N##_begin(NS##_##N##_t* _this)      \
+    { return _this->pHead;}                                                     \
                                                                                 \
-    static struct N##_node_t* N##_end(N##_t* _this) { return _this->pTail;}     \
+    static struct NS##_##N##_node_t* NS##_##N##_end(NS##_##N##_t* _this)        \
+    { return _this->pTail;}                                                     \
                                                                                 \
-    static int N##_empty(N##_t* _this) { return _this->pHead == NULL; }         \
+    static int NS##_##N##_empty(NS##_##N##_t* _this)                            \
+    { return _this->pHead == NULL; }                                            \
                                                                                 \
-    static struct N##_node_t*                                                   \
-        N##_find_if(const T element, N##_t* _this, T##cmpfn cmp)                \
+    static struct NS##_##N##_node_t*                                            \
+        NS##_##N##_find_if(const T element, NS##_##N##_t* _this, T##cmpfn cmp)  \
     {                                                                           \
-        struct N##_node_t* it  = _this->pHead;                                  \
+        struct NS##_##N##_node_t* it  = _this->pHead;                           \
         while (it) {                                                            \
             if (cmp(it->pData, element))                                        \
                     return it;                                                  \

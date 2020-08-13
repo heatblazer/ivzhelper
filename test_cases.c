@@ -34,38 +34,38 @@ static int str_cmp_grt(str_t a, str_t b) {
 
 
 
-LLIST(int, test_list);
+LLIST(ivz, int, test_list);
 
 void test_case_llist()
 {
 
-    test_list_t* l = test_list_init();
+    ivz_test_list_t* l = ivz_test_list_init();
 
-    test_list_put(5, l);
-    test_list_put(4, l);
-    test_list_put(3, l);
-    test_list_put(2, l);
-    test_list_put(1, l);
+    ivz_test_list_put(5, l);
+    ivz_test_list_put(4, l);
+    ivz_test_list_put(3, l);
+    ivz_test_list_put(2, l);
+    ivz_test_list_put(1, l);
     int i;
     for(i=0; i < 5; i++)
-        test_list_put(10, l);
+        ivz_test_list_put(10, l);
 
-    test_list_put(1313, l);
+    ivz_test_list_put(1313, l);
 
     for(i=0; i < 5; i++)
-        test_list_put(100, l);
+        ivz_test_list_put(100, l);
 
 
-    test_list_delete_node(1, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(2, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(3, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(100, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(10, &l->pHead, &int_cmp_eq);
-    test_list_delete_node(100, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(1, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(2, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(3, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(100, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(10, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(100, &l->pHead, &int_cmp_eq);
 
 
-    struct test_list_node_t* it = test_list_begin(l);
-    struct test_list_node_t* item = test_list_find_if(1313, l, &int_cmp_eq);
+    struct ivz_test_list_node_t* it = ivz_test_list_begin(l);
+    struct ivz_test_list_node_t* item = ivz_test_list_find_if(1313, l, &int_cmp_eq);
 
     if (item) {
         printf("[%d]\r\n", item->pData);
@@ -76,7 +76,7 @@ void test_case_llist()
         it = it->next;
     }
 
-    test_list_clear(l);
+    ivz_test_list_clear(l);
     free(l);
     l = NULL;
 }
@@ -161,5 +161,50 @@ void test_case_bheap()
 
     //nsivz_myheap_max_heapify(10, it, b);
     nsivz_myheap_cleanup(&it);
+
+}
+
+// mix test
+
+DARRAY(ivz, int, test_mix, 100);
+
+LLIST(ivz, ivz_test_mix_t,  test_list_mix);
+
+void test_case_mix_adt()
+{
+    size_t i, j, h;
+    // init list
+    ivz_test_list_mix_t* lst = ivz_test_list_mix_init();
+
+    for(i=0; i < 10; i++) {
+        ivz_test_mix_t* arr = ivz_test_mix_init();
+        for(j=0; j < 120; j++) {
+            ivz_test_mix_add(j, arr);
+        }
+        ivz_test_list_mix_put(*arr, lst);
+    }
+
+    struct ivz_test_list_mix_node_t* it = ivz_test_list_mix_begin(lst);
+    struct ivz_test_list_mix_node_t* end = ivz_test_list_mix_end(lst);
+
+    while (it != end) {
+        ivz_test_mix_t* arr = &it->pData;
+        for(h=0; h < arr->count; h++) {
+            printf("Iter [%d]\r\n", *ivz_test_mix_getat(h, arr));
+        }
+        printf("#####################\r\n");
+        it = it->next;
+    }
+
+    struct ivz_test_list_mix_node_t* begin = ivz_test_list_mix_begin(lst);
+
+    while (lst->pHead != NULL) {
+        struct ivz_test_list_mix_node_t* tmp = lst->pHead;
+        lst->pHead = lst->pHead->next;
+        ivz_test_mix_t* arr = &begin->pData;
+        free(arr->pData);
+        arr->pData = NULL;
+        free(tmp);
+    }
 
 }

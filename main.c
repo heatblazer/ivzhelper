@@ -57,9 +57,9 @@ int main(void)
 //    test_case_darray();
 //    puts("\r\ntest list");
 //    test_case_llist();
-    puts("\r\nbheap test");
-    test_case_bheap();
-
+//    puts("\r\nbheap test");
+//    test_case_bheap();
+    test_case_mix_adt();
 }
 
 #endif

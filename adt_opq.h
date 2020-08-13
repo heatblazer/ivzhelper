@@ -19,18 +19,12 @@ typedef struct  {                                                               
 
 
 
-#define DARRAY_OPQ(NS, T, N)                                                    \
+#define ADT_OPQ(NS, T, N)                                                       \
     struct  NS##_##N##_t;
 
 
-#define LLIST_OPQ(NS, T, N)                                                     \
-    struct  NS##_##N##_t;
-
-
-
-#define NODE_OPQ(N)                                                             \
-    struct N##_node_t;                                                          \
-    struct N##_t;
+#define NODE_OPQ(NS, N)                                                         \
+    struct NS##_##N##_node_t;
 
 
 #endif // DYNARRAY_OPQ_H
