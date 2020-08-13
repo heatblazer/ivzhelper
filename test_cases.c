@@ -182,6 +182,8 @@ void test_case_mix_adt()
             ivz_test_mix_add(j, arr);
         }
         ivz_test_list_mix_put(*arr, lst);
+        ivz_test_mix_cleanup(&arr);
+        free(arr);
     }
 
     struct ivz_test_list_mix_node_t* it = ivz_test_list_mix_begin(lst);
@@ -201,10 +203,8 @@ void test_case_mix_adt()
     while (lst->pHead != NULL) {
         struct ivz_test_list_mix_node_t* tmp = lst->pHead;
         lst->pHead = lst->pHead->next;
-        ivz_test_mix_t* arr = &begin->pData;
-        free(arr->pData);
-        arr->pData = NULL;
         free(tmp);
     }
 
+    free(lst);
 }

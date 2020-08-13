@@ -15,3 +15,6 @@ HEADERS += \
     llist_t.h \
     test_cases.h \
     utils.h
+
+DISTFILES += \
+    valgrindreport.txt
