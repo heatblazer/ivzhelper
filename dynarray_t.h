@@ -2,6 +2,7 @@
 #define DYNARRAY_T_H
 #include "adt_opq.h"
 #include <stdlib.h> /* malloc, calloc, realloc */
+#include <stdio.h> // dbf
 
 //in case no initsize is 0 or less we will assert
 #define DARRAY(NS, T, N, INITSIZE)                                              \
@@ -16,7 +17,7 @@ static const char __attribute__((unused))                                       
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-    static NS##_##N##_t* NS##_##N##_init(void)                                  \
+     NS##_##N##_t* NS##_##N##_init(void)                                  \
     {                                                                           \
         NS##_##N##_t* pN = (NS##_##N##_t*)malloc(sizeof(NS##_##N##_t));         \
         if (!pN) return NULL;                                                   \
@@ -87,7 +88,7 @@ static const char __attribute__((unused))                                       
         _this->count++;                                                         \
     }                                                                           \
                                                                                 \
-    static T* NS##_##N##_find_if                                                \
+    static T* NS##_##N##_find_if                                                 \
         (T item, NS##_##N##_t* _this, T##cmpfn cmp)                             \
     {                                                                           \
         size_t i;                                                               \
@@ -96,6 +97,9 @@ static const char __attribute__((unused))                                       
                 return &_this->pData[i];                                        \
         }                                                                       \
         return NULL;                                                            \
-    }
+    }                                                                           \
+                                                                                \
+    void NS##_##N##_foo(void) { printf("foooooo \r\n");}
+
 
 #endif // DYNARRAY_T_H

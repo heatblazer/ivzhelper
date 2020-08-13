@@ -157,8 +157,9 @@ void test_case_bheap()
         printf("[%s]\r\n", nsivz_myheap_arr_getat(i, it->array)->data);
     }
 
-    //nsivz_myheap_max_heapify(10, it, b);
+    nsivz_myheap_arr_foo();
 
+    //nsivz_myheap_max_heapify(10, it, b);
     nsivz_myheap_cleanup(&it);
 
 }

@@ -2,17 +2,29 @@
 #define ADT_OPQ_H
 /* opaqua pointers to use in headers, declare structs when needed */
 
+/**
+interface for the data structures
+*/
 #define CMP_FNS(NS, T, N)                                                       \
 typedef struct  {                                                               \
         int (*NS##_##N##__lt__)(const T, const T);                              \
         int (*NS##_##N##__gt__)(const T, const T);                              \
         int (*NS##_##N##__eq__)(const T, const T);                              \
-    }  NS##_##N##_CMP_##T;
+    }  NS##_##N##_CMP_##T;                                                      \
+                                                                                \
+    extern struct NS##_##N##_t* NS##_##N##_init(void);                          \
+                                                                                \
+    extern void NS##_##N##_foo(void);
+
 
 
 
 #define DARRAY_OPQ(NS, T, N)                                                    \
-    struct  NS##_##N##_t;                                                       \
+    struct  NS##_##N##_t;
+
+
+#define LLIST_OPQ(NS, T, N)                                                     \
+    struct  NS##_##N##_t;
 
 
 

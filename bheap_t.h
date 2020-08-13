@@ -11,7 +11,7 @@
     } NS##_##N##_t;                                                             \
                                                                                 \
                                                                                 \
-    static NS##_##N##_t* NS##_##N##_init(void)                                  \
+    NS##_##N##_t* NS##_##N##_init(void)                                         \
     {                                                                           \
         NS##_##N##_t* bh = (NS##_##N##_t*)calloc(1, sizeof(NS##_##N##_t));      \
         if (bh) {                                                               \
