@@ -17,7 +17,7 @@
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-    static NS##_##N##_t* NS##_##N##_init(void)                                  \
+    NS##_##N##_t* NS##_##N##_init(void)                                         \
     {                                                                           \
         NS##_##N##_t* pl = (NS##_##N##_t*)calloc(1, sizeof(NS##_##N##_t));      \
         if (pl)                                                                 \

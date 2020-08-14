@@ -3,7 +3,7 @@
 #include "adt_opq.h"
 #include "dynarray_t.h"
 #include "bheap_t.h"
-
+#include "btree_t.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -141,9 +141,9 @@ void test_case_bheap()
     struct nsivz_myheap_t* it = nsivz_myheap_init();
 
     nsivz_myheap_CMP_str_t b ;
-    b.nsivz_myheap__lt__ = &lt;
-    b.nsivz_myheap__gt__ = &gt;
-    b.nsivz_myheap__eq__ = &eq;
+    b.__lt__ = &lt;
+    b.__gt__ = &gt;
+    b.__eq__ = &eq;
 
 
     int i;
@@ -207,4 +207,33 @@ void test_case_mix_adt()
     }
 
     free(lst);
+}
+
+
+BTREE(ivz, int, btree);
+
+static int btlt(const int a, const int b) { return  a < b; }
+
+static ivz_btree_CMP_int btreecmp = {.__lt__= &btlt};
+
+static void test_walker(struct ivz_btree_node_t* root)
+{
+    if (!root)return ;
+    printf("[%d]\r\n", root->pData);
+    test_walker(root->left);
+    test_walker(root->right);
+}
+
+
+void test_case_bst()
+{
+    struct ivz_btree_t* tree = ivz_btree_init();
+    tree->cmpfns = btreecmp;
+    ivz_btree_insert(100, tree);
+    ivz_btree_insert(90, tree);
+    ivz_btree_insert(10, tree);
+
+    test_walker(tree->pRoot);
+
+    free(tree);
 }

@@ -26,7 +26,7 @@
                                                                                 \
                                                                                 \
                                                                                 \
-    static void NS##_##N##_cleanup(NS##_##N##_t** _this)                        \
+    void NS##_##N##_cleanup(NS##_##N##_t** _this)                               \
     {                                                                           \
         printf("cleanup of bheap\r\n");                                         \
         NS##_##N##_arr_cleanup(&((*_this)->array));                             \
@@ -47,10 +47,6 @@
     {                                                                           \
         return _this->array->pData[(idx* 2)+2];                                 \
     }                                                                           \
-
-
-
-
 
 
 

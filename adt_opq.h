@@ -6,17 +6,15 @@
 interface for the data structures
 */
 #define CMP_FNS(NS, T, N)                                                       \
-typedef struct  {                                                               \
-        int (*NS##_##N##__lt__)(const T, const T);                              \
-        int (*NS##_##N##__gt__)(const T, const T);                              \
-        int (*NS##_##N##__eq__)(const T, const T);                              \
+    typedef struct  {                                                           \
+        int (*__lt__)(const T, const T);                                        \
+        int (*__gt__)(const T, const T);                                        \
+        int (*__eq__)(const T, const T);                                        \
     }  NS##_##N##_CMP_##T;                                                      \
                                                                                 \
     extern struct NS##_##N##_t* NS##_##N##_init(void);                          \
                                                                                 \
-    extern void NS##_##N##_foo(void);
-
-
+    extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this);
 
 
 #define ADT_OPQ(NS, T, N)                                                       \
@@ -26,5 +24,7 @@ typedef struct  {                                                               
 #define NODE_OPQ(NS, N)                                                         \
     struct NS##_##N##_node_t;
 
+#define NEW_NODE(NS, N, ALLOC)                                                  \
+    (struct NS##_##N##_node_t*)(ALLOC(sizeof(struct NS##_##N##_node_t)))
 
 #endif // DYNARRAY_OPQ_H

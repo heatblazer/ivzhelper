@@ -17,7 +17,7 @@ static const char __attribute__((unused))                                       
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-     NS##_##N##_t* NS##_##N##_init(void)                                  \
+     NS##_##N##_t* NS##_##N##_init(void)                                        \
     {                                                                           \
         NS##_##N##_t* pN = (NS##_##N##_t*)malloc(sizeof(NS##_##N##_t));         \
         if (!pN) return NULL;                                                   \
@@ -70,7 +70,7 @@ static const char __attribute__((unused))                                       
         else return NULL;                                                       \
     }                                                                           \
                                                                                 \
-    static void NS##_##N##_cleanup(NS##_##N##_t** _this)                        \
+    void NS##_##N##_cleanup(NS##_##N##_t** _this)                               \
     {                                                                           \
         if (*_this) {                                                           \
             if ((*_this)->pData)                                                \

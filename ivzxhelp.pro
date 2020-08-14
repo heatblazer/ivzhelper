@@ -11,10 +11,12 @@ SOURCES += \
 HEADERS += \
     adt_opq.h \
     bheap_t.h \
+    btree_t.h \
     dynarray_t.h \
     llist_t.h \
     test_cases.h \
     utils.h
 
 DISTFILES += \
+    TODO.md \
     valgrindreport.txt
