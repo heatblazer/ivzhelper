@@ -1,9 +1,5 @@
 #include "test_cases.h"
-#include "llist_t.h"
-#include "adt_opq.h"
-#include "dynarray_t.h"
-#include "bheap_t.h"
-#include "btree_t.h"
+#include "adt_t.h"
 
 #include <stdio.h>
 #include <stdlib.h>

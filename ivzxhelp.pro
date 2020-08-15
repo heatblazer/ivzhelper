@@ -10,6 +10,7 @@ SOURCES += \
 
 HEADERS += \
     adt_opq.h \
+    adt_t.h \
     bheap_t.h \
     btree_t.h \
     dynarray_t.h \
