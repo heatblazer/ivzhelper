@@ -24,7 +24,14 @@ interface for the data structures
 #define NODE_OPQ(NS, N)                                                         \
     struct NS##_##N##_node_t;
 
+#define NEW_(NS, N, ALLOC)                                                      \
+    (struct NS##_##N##_t*)(ALLOC(sizeof(struct NS##_##N##_t* )))
+
 #define NEW_NODE(NS, N, ALLOC)                                                  \
     (struct NS##_##N##_node_t*)(ALLOC(sizeof(struct NS##_##N##_node_t)))
+
+#define CLEANUP(NS, N, SELF, DEL)                                               \
+    NS##_##N##_cleanup(&SELF);                                                  \
+    DEL(SELF)
 
 #endif // DYNARRAY_OPQ_H
