@@ -1,6 +1,8 @@
 #include "test_cases.h"
-#include "adt_t.h"
-
+#include "btree_t.h"
+#include "dynarray_t.h"
+#include "bheap_t.h"
+#include "llist_t.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,9 +25,8 @@ static int str_cmp_contains(str_t a, str_t b) {
     return  strstr(b.data, a.data)!=NULL;
 }
 
-static int str_cmp_grt(str_t a, str_t b) {
-    return strcmp(a.data, b.data) == 0 ? 1 : 0;
-}
+static int __attribute__((unused))
+str_cmp_grt(str_t a, str_t b) {return strcmp(a.data, b.data) == 0 ? 1 : 0;}
 
 
 
@@ -230,6 +231,6 @@ void test_case_bst()
     ivz_btree_insert(10, tree);
 
     test_walker(tree->pRoot);
-
+    ivz_btree_cleanup(&tree);
     free(tree);
 }

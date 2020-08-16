@@ -307,7 +307,7 @@ static const char __attribute__((unused))                                       
                 (item, _this->pRoot, _this->cmpfns);                            \
     }                                                                           \
                                                                                 \
-    extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this)                 \
+    void NS##_##N##_cleanup(struct NS##_##N##_t** _this)                        \
     {                                                                           \
     }
 

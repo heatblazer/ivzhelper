@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        linux-commands.c \
         main.c \
         test_cases.c \
         utils.c
@@ -14,6 +15,7 @@ HEADERS += \
     bheap_t.h \
     btree_t.h \
     dynarray_t.h \
+    linux-commands.h \
     llist_t.h \
     test_cases.h \
     utils.h

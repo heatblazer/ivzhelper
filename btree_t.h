@@ -22,8 +22,7 @@
                                                                                 \
     struct NS##_##N##_t* NS##_##N##_init(void)                                  \
     {                                                                           \
-        struct NS##_##N##_t* pl = (struct NS##_##N##_t*)                        \
-                calloc(1, sizeof(struct NS##_##N##_t));                         \
+        struct NS##_##N##_t* pl = NEW_(NS, N, malloc);                          \
         if (pl){                                                                \
             pl->pRoot = NULL;                                                   \
             return pl;                                                          \
@@ -53,40 +52,20 @@
                 (item, _this->pRoot, _this->cmpfns);                            \
     }                                                                           \
                                                                                 \
+    static void NS##_##N##_internal_clean(struct NS##_##N##_node_t** root)      \
+    {                                                                           \
+        if (!*root)return;                                                      \
+        NS##_##N##_internal_clean(&(*root)->left);                              \
+        NS##_##N##_internal_clean(&(*root)->right);                             \
+        free(*root);                                                            \
+        (*root) = NULL;                                                         \
+    }                                                                           \
     extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this)                 \
     {                                                                           \
+        NS##_##N##_internal_clean(&(*_this)->pRoot);                             \
+        free(*_this);                                                           \
+        (*_this) = NULL;                                                        \
     }
 
 
 #endif // BTREE_T_H
-
-/*
- *
-
-*/
-/*
-    static struct NS##_##N##_node_t*                                            \
-        _insert_                                                                \
-        (T item, struct NS##_##N##_node_t* root, T##cmpfn cmp)                  \
-    {                                                                           \
-        struct NS##_##N##_node_t* n =                                           \
-            (struct NS##_##N##_node_t*)malloc(sizeof(struct NS##_##N##_node_t));\
-        if (n) {                                                                \
-            n->pData = T;                                                       \
-            n->left = n->right = NULL;                                          \
-        }                                                                       \
-        if (!root)                                                              \
-            return n;                                                           \
-        if (cmp(root->pData, T))                                                \
-                root->left = _insert_(item, root, cmpfn);                       \
-        else                                                                    \
-            root->right = _insert_(item, root, cmpfn);                          \
-    }                                                                           \
-                                                                                \
-                                                                                \
-    static void NS##_##N##_insert(T item, NS##_##N##_t* _this)                  \
-    {                                                                           \
-            _this->pRoot = _insert_                                             \
-                (item, _this->pRoot, _this->cmpfns.__lt__);                     \
-    }
-*/

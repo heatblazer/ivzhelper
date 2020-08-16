@@ -19,7 +19,7 @@ static const char __attribute__((unused))                                       
                                                                                 \
      NS##_##N##_t* NS##_##N##_init(void)                                        \
     {                                                                           \
-        NS##_##N##_t* pN = (NS##_##N##_t*)malloc(sizeof(NS##_##N##_t));         \
+        NS##_##N##_t* pN = NEW_(NS, N, malloc) ;                                \
         if (!pN) return NULL;                                                   \
         else {                                                                  \
             pN->pData = (T*)calloc(INITSIZE, sizeof(T));                        \
