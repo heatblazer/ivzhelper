@@ -14,7 +14,9 @@ interface for the data structures
                                                                                 \
     extern struct NS##_##N##_t* NS##_##N##_init(void);                          \
                                                                                 \
-    extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this);
+    extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this);                \
+
+
 
 
 #define ADT_OPQ(NS, T, N)                                                       \
@@ -25,7 +27,7 @@ interface for the data structures
     struct NS##_##N##_node_t;
 
 #define NEW_(NS, N, ALLOC)                                                      \
-    (struct NS##_##N##_t*)(ALLOC(sizeof(struct NS##_##N##_t* )))
+    (struct NS##_##N##_t*)(ALLOC(sizeof(struct NS##_##N##_t)))
 
 #define NEW_NODE(NS, N, ALLOC)                                                  \
     (struct NS##_##N##_node_t*)(ALLOC(sizeof(struct NS##_##N##_node_t)))
