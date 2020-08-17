@@ -1,9 +1,8 @@
-//#include "test_cases.h"
-#include "linux-commands.h"
+#include "test_cases.h"
 
 int main(void)
 {
-#if 0
+#if 1
     printf("\r\nlist testcase\r\n");
     test_case_llist();
     printf("\r\ntest bheap\r\n");
@@ -13,7 +12,7 @@ int main(void)
     printf("\r\ntest bin tree\r\n");
     test_case_bst();
 #else
-    dnf_history();
+    ls_l();
 
 
 #endif

@@ -3,6 +3,6 @@
 
 
 
-extern void dnf_history(void);
+extern void ls_l(void);
 
 #endif // LINUXCOMMANDS_H
