@@ -6,6 +6,7 @@
 //NS##_##N##_t
 
 #define BTREE(NS, T, N)                                                         \
+                                                                                \
     CMP_FNS(NS, T, N);                                                          \
                                                                                 \
     struct NS##_##N##_node_t                                                    \
@@ -14,7 +15,7 @@
         T pData;                                                                \
     };                                                                          \
                                                                                 \
-    typedef struct NS##_##N##_t                                                 \
+    struct NS##_##N##_t                                                         \
     {                                                                           \
         struct NS##_##N##_node_t *pRoot;                                        \
         NS##_##N##_CMP_##T cmpfns;                                              \
@@ -54,18 +55,28 @@
                                                                                 \
     static void NS##_##N##_internal_clean(struct NS##_##N##_node_t** root)      \
     {                                                                           \
-        if (!*root)return;                                                      \
-        NS##_##N##_internal_clean(&(*root)->left);                              \
-        NS##_##N##_internal_clean(&(*root)->right);                             \
-        free(*root);                                                            \
-        (*root) = NULL;                                                         \
+        if (*root != NULL) {                                                    \
+            NS##_##N##_internal_clean(&(*root)->left);                          \
+            NS##_##N##_internal_clean(&(*root)->right);                         \
+            free(*root);                                                        \
+            (*root) = NULL;                                                     \
+        }                                                                       \
     }                                                                           \
     extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this)                 \
     {                                                                           \
         NS##_##N##_internal_clean(&(*_this)->pRoot);                             \
         free(*_this);                                                           \
         (*_this) = NULL;                                                        \
-    }
+    }                                                                           \
+
 
 
 #endif // BTREE_T_H
+/*
+ *                                                                                 \
+    T* NS##_##N##_find_if(T item, NS##_##N##_t* _this)                          \
+    {                                                                           \
+        return NS##_##N##__find__(item, _this->pRoot, _this->cmpfns);           \
+    }
+
+ * */
