@@ -211,7 +211,27 @@ BTREE(ivz, int, btree);
 
 static int btlt(const int a, const int b) { return  a < b; }
 
-static ivz_btree_CMP_int btreecmp = {.__lt__= &btlt};
+static int bteq(const int a, const int b) { return  a == b; }
+
+static int btgt(const int a, const int b) { return  a > b; }
+
+
+static ivz_btree_CMP_int btreecmp =
+    {.__lt__= &btlt, .__eq__ = &bteq, .__gt__ = &btgt};
+
+// test alfo for find
+struct ivz_btree_node_t*
+findmynode(int item, struct ivz_btree_node_t* root, ivz_btree_CMP_int cmp)
+{
+    if (!root) return NULL;
+    if (cmp.__eq__(root->pData, item)) return root;
+    struct ivz_btree_node_t* l, *r;
+    l = findmynode(item, root->left, cmp);
+    r = findmynode(item, root->right, cmp);
+    if (l && cmp.__eq__(l->pData, item)) return l;
+    else if (r && cmp.__eq__(r->pData, item)) return  r;
+    return  root;
+}
 
 static void test_walker(struct ivz_btree_node_t* root)
 {
@@ -222,15 +242,16 @@ static void test_walker(struct ivz_btree_node_t* root)
 }
 
 
+
+
+
 void test_case_bst()
 {
+    int i;
     struct ivz_btree_t* tree = ivz_btree_init();
     tree->cmpfns = btreecmp;
     ivz_btree_insert(100, tree);
-    ivz_btree_insert(90, tree);
-    ivz_btree_insert(10, tree);
-
     test_walker(tree->pRoot);
+
     ivz_btree_cleanup(&tree);
-    free(tree);
 }
