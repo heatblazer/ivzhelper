@@ -10,6 +10,8 @@ int main(void)
 //    test_case_bheap();
     printf("\r\ntest mix\r\n");
 //    test_case_mix_adt();
+    test_case_darray();
+
     printf("\r\ntest bin tree\r\n");
     test_case_bst();
 #else

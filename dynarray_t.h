@@ -13,6 +13,7 @@ static const char __attribute__((unused))                                       
     {                                                                           \
         size_t size, count;                                                     \
         T* pData;                                                               \
+        NS##_##N##_CMP_##T cmpfns;                                              \
     } NS##_##N##_t;                                                             \
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
@@ -88,12 +89,11 @@ static const char __attribute__((unused))                                       
         _this->count++;                                                         \
     }                                                                           \
                                                                                 \
-    static T* NS##_##N##_find_if                                                 \
-        (T item, NS##_##N##_t* _this, T##cmpfn cmp)                             \
+    T* NS##_##N##_find_if(T item, NS##_##N##_t* _this)                          \
     {                                                                           \
         size_t i;                                                               \
         for(i=0; i < _this->count; i++) {                                       \
-            if (cmp(item, _this->pData[i]))                                     \
+            if (_this->cmpfns.__eq__(item, _this->pData[i]))                    \
                 return &_this->pData[i];                                        \
         }                                                                       \
         return NULL;                                                            \

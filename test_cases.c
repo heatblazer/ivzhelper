@@ -13,9 +13,12 @@ typedef struct str_t
     char data[80];
 } str_t;
 
-static int int_cmp_eq(int a, int b) {
-    return  a == b;
-}
+static int fnlt(const int a, const int b) { return  a < b; }
+
+static int fneq(const int a, const int b) { return  a == b; }
+
+static int fngt(const int a, const int b) { return  a > b; }
+
 
 static int str_cmp_eq(str_t a, str_t b) {
     return  !strcmp(a.data, b.data);
@@ -30,13 +33,15 @@ str_cmp_grt(str_t a, str_t b) {return strcmp(a.data, b.data) == 0 ? 1 : 0;}
 
 
 
-
+#if 0
 LLIST(ivz, int, test_list);
+
 
 void test_case_llist()
 {
 
     ivz_test_list_t* l = ivz_test_list_init();
+    ivz_test_mix_CMP_int cmps = {.__eq__=&fneq, .__lt__=&fnlt, .__gt__=&fngt};
 
     ivz_test_list_put(5, l);
     ivz_test_list_put(4, l);
@@ -62,7 +67,7 @@ void test_case_llist()
 
 
     struct ivz_test_list_node_t* it = ivz_test_list_begin(l);
-    struct ivz_test_list_node_t* item = ivz_test_list_find_if(1313, l, &int_cmp_eq);
+    struct ivz_test_list_node_t* item = ivz_test_list_find_if(1313, l);
 
     if (item) {
         printf("[%d]\r\n", item->pData);
@@ -78,27 +83,28 @@ void test_case_llist()
     l = NULL;
 }
 
-
+#endif
 DARRAY(ivz, str_t, test_array, 100);
 
 
 void test_case_darray()
 {
     ivz_test_array_t* arr = ivz_test_array_init();
-
+    ivz_test_array_CMP_str_t cmps = {.__eq__=&str_cmp_eq};
+    arr->cmpfns = cmps;
     int i;
     for(i=0; i < 200; i++) {
-        str_t t = {{0}};
+        str_t t = {0, {0}};
         snprintf(t.data, sizeof(t.data), "TEST: [%d]\r\n", i);
         ivz_test_array_add(t, arr);
     }
     str_t f, n ;
     snprintf(f.data, sizeof(f.data), "TEST: [155]\r\n");
-    strcpy(n.data, "56");
+    strcpy(n.data, "TEST: [56]\r\n");
 
-    str_t* found = ivz_test_array_find_if(f, arr, &str_cmp_eq);
+    str_t* found =  ivz_test_array_find_if(n, arr);
 
-    str_t* found2 = ivz_test_array_find_if(n, arr, &str_cmp_contains);
+    str_t* found2 = ivz_test_array_find_if(n, arr);
 
     if (found) {
         printf("FOUND : [%s]\r\n", found->data);
@@ -165,6 +171,7 @@ void test_case_bheap()
 
 DARRAY(ivz, int, test_mix, 100);
 
+#if 0
 LLIST(ivz, ivz_test_mix_t,  test_list_mix);
 
 void test_case_mix_adt()
@@ -205,19 +212,14 @@ void test_case_mix_adt()
 
     free(lst);
 }
-
+#endif
 
 BTREE(ivz, int, btree);
 
-static int btlt(const int a, const int b) { return  a < b; }
-
-static int bteq(const int a, const int b) { return  a == b; }
-
-static int btgt(const int a, const int b) { return  a > b; }
 
 
 static ivz_btree_CMP_int btreecmp =
-    {.__lt__= &btlt, .__eq__ = &bteq, .__gt__ = &btgt};
+    {.__lt__= &fnlt, .__eq__ = &fneq, .__gt__ = &fngt};
 
 // test alfo for find
 struct ivz_btree_node_t*
@@ -240,9 +242,6 @@ static void test_walker(struct ivz_btree_node_t* root)
     test_walker(root->left);
     test_walker(root->right);
 }
-
-
-
 
 
 void test_case_bst()

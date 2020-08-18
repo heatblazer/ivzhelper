@@ -3,6 +3,8 @@
 #include "adt_opq.h"
 //NS##_##N##_t
 #define LLIST(NS, T, N)                                                         \
+    CMP_FNS(NS, T, N);                                                          \
+                                                                                \
     struct NS##_##N##_node_t                                                    \
     {                                                                           \
         struct NS##_##N##_node_t* next;                                         \
@@ -13,9 +15,8 @@
     {                                                                           \
         struct NS##_##N##_node_t *pHead, *pTail;                                \
         unsigned int size;                                                      \
+        NS##_##N##_CMP_##T cmpfns;                                              \
     } NS##_##N##_t;                                                             \
-                                                                                \
-    typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
     NS##_##N##_t* NS##_##N##_init(void)                                         \
     {                                                                           \
@@ -74,13 +75,12 @@
     static int NS##_##N##_empty(NS##_##N##_t* _this)                            \
     { return _this->pHead == NULL; }                                            \
                                                                                 \
-    static struct NS##_##N##_node_t*                                            \
-        NS##_##N##_find_if(const T element, NS##_##N##_t* _this, T##cmpfn cmp)  \
+    T* NS##_##N##_find_if(const T element, NS##_##N##_t* _this)                 \
     {                                                                           \
         struct NS##_##N##_node_t* it  = _this->pHead;                           \
         while (it) {                                                            \
-            if (cmp(it->pData, element))                                        \
-                    return it;                                                  \
+            if (_this->cmpfns.__eq__(it->pData, element))                       \
+                    return it->pData;                                           \
             it = it->next;                                                      \
         }                                                                       \
         return NULL;                                                            \

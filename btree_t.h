@@ -64,10 +64,11 @@
     }                                                                           \
     extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this)                 \
     {                                                                           \
-        NS##_##N##_internal_clean(&(*_this)->pRoot);                             \
+        NS##_##N##_internal_clean(&(*_this)->pRoot);                            \
         free(*_this);                                                           \
         (*_this) = NULL;                                                        \
     }                                                                           \
+                                                                                \
 
 
 
