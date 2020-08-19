@@ -4,7 +4,7 @@
 #include "dynarray_t.h"
 
 #define BHEAP(NS, T, N, INITSIZE)                                               \
-    CMP_FNS(NS, T, N);                                                          \
+    IFACE(NS, T, N);                                                          \
     DARRAY(NS, T, N##_arr, INITSIZE)                                            \
     typedef struct NS##_##N##_t {                                               \
         NS##_##N##_arr_t* array;                                                \

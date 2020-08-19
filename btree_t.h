@@ -7,7 +7,7 @@
 
 #define BTREE(NS, T, N)                                                         \
                                                                                 \
-    CMP_FNS(NS, T, N);                                                          \
+    IFACE(NS, T, N);                                                          \
                                                                                 \
     struct NS##_##N##_node_t                                                    \
     {                                                                           \

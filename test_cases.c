@@ -33,7 +33,7 @@ str_cmp_grt(str_t a, str_t b) {return strcmp(a.data, b.data) == 0 ? 1 : 0;}
 
 
 
-#if 0
+#if 1
 LLIST(ivz, int, test_list);
 
 
@@ -41,7 +41,7 @@ void test_case_llist()
 {
 
     ivz_test_list_t* l = ivz_test_list_init();
-    ivz_test_mix_CMP_int cmps = {.__eq__=&fneq, .__lt__=&fnlt, .__gt__=&fngt};
+    ivz_test_list_CMP_int cmps;
 
     ivz_test_list_put(5, l);
     ivz_test_list_put(4, l);
@@ -58,20 +58,21 @@ void test_case_llist()
         ivz_test_list_put(100, l);
 
 
-    ivz_test_list_delete_node(1, &l->pHead, &int_cmp_eq);
-    ivz_test_list_delete_node(2, &l->pHead, &int_cmp_eq);
-    ivz_test_list_delete_node(3, &l->pHead, &int_cmp_eq);
-    ivz_test_list_delete_node(100, &l->pHead, &int_cmp_eq);
-    ivz_test_list_delete_node(10, &l->pHead, &int_cmp_eq);
-    ivz_test_list_delete_node(100, &l->pHead, &int_cmp_eq);
+    ivz_test_list_delete_node(1, &l->pHead, &fneq);
+    ivz_test_list_delete_node(2, &l->pHead, &fneq);
+    ivz_test_list_delete_node(3, &l->pHead, &fneq);
+    ivz_test_list_delete_node(100, &l->pHead, &fneq);
+    ivz_test_list_delete_node(10, &l->pHead, &fneq);
+    ivz_test_list_delete_node(100, &l->pHead, &fneq);
 
 
     struct ivz_test_list_node_t* it = ivz_test_list_begin(l);
-    struct ivz_test_list_node_t* item = ivz_test_list_find_if(1313, l);
+//TODO!!!
+//    int* item = &ivz_test_list_find_if(1313, l, &fneq)->pData;
 
-    if (item) {
-        printf("[%d]\r\n", item->pData);
-    }
+//    if (item) {
+//        printf("[%d]\r\n", item->pData);
+//    }
 
     while (it) {
         printf("[%d]\r\n", it->pData);
@@ -102,9 +103,9 @@ void test_case_darray()
     snprintf(f.data, sizeof(f.data), "TEST: [155]\r\n");
     strcpy(n.data, "TEST: [56]\r\n");
 
-    str_t* found =  ivz_test_array_find_if(n, arr);
+    str_t* found =  ivz_test_array_find_if(n, arr, str_cmp_eq);
 
-    str_t* found2 = ivz_test_array_find_if(n, arr);
+    str_t* found2 = ivz_test_array_find_if(n, arr, str_cmp_eq);
 
     if (found) {
         printf("FOUND : [%s]\r\n", found->data);

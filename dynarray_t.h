@@ -6,7 +6,7 @@
 
 //in case no initsize is 0 or less we will assert
 #define DARRAY(NS, T, N, INITSIZE)                                              \
-    CMP_FNS(NS, T, N);                                                          \
+    IFACE(NS, T, N);                                                          \
 static const char __attribute__((unused))                                       \
             NS##_##N##_sassertsizeless[INITSIZE <=0 ? -1 : 1];                  \
     typedef struct NS##_##N##_t                                                 \
@@ -89,11 +89,12 @@ static const char __attribute__((unused))                                       
         _this->count++;                                                         \
     }                                                                           \
                                                                                 \
-    T* NS##_##N##_find_if(T item, NS##_##N##_t* _this)                          \
+    T* NS##_##N##_find_if                                                       \
+    (T item, NS##_##N##_t* _this, NS##_##N##_T##_cmpfn cmp)                     \
     {                                                                           \
         size_t i;                                                               \
         for(i=0; i < _this->count; i++) {                                       \
-            if (_this->cmpfns.__eq__(item, _this->pData[i]))                    \
+            if (cmp(item, _this->pData[i]))                                     \
                 return &_this->pData[i];                                        \
         }                                                                       \
         return NULL;                                                            \

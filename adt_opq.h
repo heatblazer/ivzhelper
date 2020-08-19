@@ -5,7 +5,8 @@
 /**
 interface for the data structures
 */
-#define CMP_FNS(NS, T, N)                                                       \
+#define IFACE(NS, T, N)                                                         \
+    typedef int (*NS##_##N##_T##_cmpfn)(const T, const T);                      \
     typedef struct  NS##_##N##_CMP_##T{                                         \
         int (*__lt__)(const T, const T);                                        \
         int (*__gt__)(const T, const T);                                        \
@@ -16,7 +17,8 @@ interface for the data structures
                                                                                 \
     extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this);                \
                                                                                 \
-    extern T* NS##_##N##_find_if(const T item, struct NS##_##N##_t* _this);
+    extern T* NS##_##N##_find_if                                                \
+    (const T item, struct NS##_##N##_t* _this,NS##_##N##_T##_cmpfn);
 
 
 

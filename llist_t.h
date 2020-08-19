@@ -3,7 +3,7 @@
 #include "adt_opq.h"
 //NS##_##N##_t
 #define LLIST(NS, T, N)                                                         \
-    CMP_FNS(NS, T, N);                                                          \
+    IFACE(NS, T, N);                                                            \
                                                                                 \
     struct NS##_##N##_node_t                                                    \
     {                                                                           \
@@ -18,7 +18,7 @@
         NS##_##N##_CMP_##T cmpfns;                                              \
     } NS##_##N##_t;                                                             \
                                                                                 \
-    NS##_##N##_t* NS##_##N##_init(void)                                         \
+    struct NS##_##N##_t* NS##_##N##_init(void)                                  \
     {                                                                           \
         NS##_##N##_t* pl = (NS##_##N##_t*)calloc(1, sizeof(NS##_##N##_t));      \
         if (pl)                                                                 \
@@ -53,7 +53,7 @@
     }                                                                           \
                                                                                 \
     static void NS##_##N##_delete_node                                          \
-    (T item, struct NS##_##N##_node_t** node, T##cmpfn cmp)                     \
+    (T item, struct NS##_##N##_node_t** node, NS##_##N##_T##_cmpfn cmp)         \
     {                                                                           \
         struct NS##_##N##_node_t* cur = *node;                                  \
         if (cur && cmp(cur->pData,item)){                                       \
@@ -74,17 +74,21 @@
                                                                                 \
     static int NS##_##N##_empty(NS##_##N##_t* _this)                            \
     { return _this->pHead == NULL; }                                            \
-                                                                                \
-    T* NS##_##N##_find_if(const T element, NS##_##N##_t* _this)                 \
+
+
+
+
+#endif // LLIST_T_H
+/*
+    T* NS##_##N##_find_if                                                       \
+    (const T element, NS##_##N##_t* _this,NS##_##N##_T##_cmpfn cmp)             \
     {                                                                           \
         struct NS##_##N##_node_t* it  = _this->pHead;                           \
         while (it) {                                                            \
-            if (_this->cmpfns.__eq__(it->pData, element))                       \
+            if (cmp(it->pData, element))                                        \
                     return it->pData;                                           \
             it = it->next;                                                      \
         }                                                                       \
         return NULL;                                                            \
     }
-
-
-#endif // LLIST_T_H
+*/
