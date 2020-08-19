@@ -13,6 +13,10 @@ interface for the data structures
         int (*__eq__)(const T, const T);                                        \
     }  NS##_##N##_CMP_##T;                                                      \
                                                                                 \
+    struct  NS##_##N##_t;                                                       \
+                                                                                \
+    struct NS##_##N##_node_t;                                                   \
+                                                                                \
     extern struct NS##_##N##_t* NS##_##N##_init(void);                          \
                                                                                 \
     extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this);                \
@@ -21,14 +25,6 @@ interface for the data structures
     (const T item, struct NS##_##N##_t* _this,NS##_##N##_T##_cmpfn);
 
 
-
-
-#define ADT_OPQ(NS, T, N)                                                       \
-    struct  NS##_##N##_t;
-
-
-#define NODE_OPQ(NS, N)                                                         \
-    struct NS##_##N##_node_t;
 
 #define NEW_(NS, N, ALLOC)                                                      \
     (struct NS##_##N##_t*)(ALLOC(sizeof(struct NS##_##N##_t)))
