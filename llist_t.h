@@ -11,7 +11,7 @@
         T pData;                                                                \
     };                                                                          \
                                                                                 \
-    typedef struct                                                              \
+    typedef struct NS##_##N##_t                                                 \
     {                                                                           \
         struct NS##_##N##_node_t *pHead, *pTail;                                \
         unsigned int size;                                                      \

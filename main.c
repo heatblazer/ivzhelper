@@ -22,8 +22,8 @@ int main(void)
     printf("\r\ntest bin tree\r\n");
     test_case_bst();
 #else
-    ls_l();
-
+//    ls_l();
+    test_case_mixup();
 
 #endif
 }

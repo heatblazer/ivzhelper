@@ -10,7 +10,7 @@ DARRAY(ivz, string_t, dnf_str_array, 100);
 void ls_l()
 {
     size_t i, j, k;
-    static const char* lsl = "ls -l";
+    static const char* lsl = "git log";
     struct ivz_dnf_str_array_t* arr = ivz_dnf_str_array_init();
 
     FILE* cmdpipe = popen(lsl, "r");
@@ -29,9 +29,9 @@ void ls_l()
     for(i=0; i < arr->count; i++)
     {
         string_t* out = NULL;
-        size_t cnt = split(ivz_dnf_str_array_getat(i, arr)->buff, " ", &out);
+        size_t cnt = split(ivz_dnf_str_array_getat(i, arr)->buff, "commit", &out);
         for(j=0; j < cnt; j++) {
-            printf("[%s]\r\n", out[j].buff);
+            printf("[%s]", out[j].buff);
         }
         printf("###########\r\n");
         free(out);
