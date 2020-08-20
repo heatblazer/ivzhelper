@@ -245,3 +245,56 @@ void test_case_bst()
 
     ivz_btree_cleanup(&tree);
 }
+
+
+
+
+DARRAY(ivz, str_t, str_arr, 100);
+DARRAY(ivz, ivz_str_arr_t, str_arr2, 100);
+LLIST(ivz, ivz_str_arr2_t, mix_list);
+
+#define LOOPA 10
+#define LOOPB 20
+#define LOOPC 30
+
+void test_case_mixup()
+{
+    ivz_mix_list_t* lst = ivz_mix_list_init();
+
+    int i, j, h;
+    for (h=0; h <LOOPA; h++) {
+        ivz_str_arr2_t arr = ivz_str_arr2_sinit();
+        for (j=0; j < LOOPB; j++) {
+            ivz_str_arr_t dat = ivz_str_arr_sinit();
+            for(i=0; i < LOOPC; i++) {
+                str_t s = {0,{0}};
+                snprintf(s.data, sizeof(s.data), "{data:%d;weight:%d}", i+j+h, i);
+                ivz_str_arr_add(s, &dat);
+            }
+            ivz_str_arr2_add(dat, &arr);
+        }
+        ivz_mix_list_put(arr, lst);
+    }
+
+
+    struct ivz_mix_list_node_t* it = ivz_mix_list_begin(lst);
+    while (it)
+    {
+        ivz_str_arr2_t dat = it->pData;
+        for(i=0; i < dat.count; i++) {
+            puts("-------------------------------------------------------------------");
+            ivz_str_arr_t* item =ivz_str_arr2_getat(i, &dat);
+            for(j=0; j < item->count; j++) {
+                printf("[%s]", ivz_str_arr_getat(j, item)->data);
+            }
+            free(item->pData);
+            puts("");
+        }
+        free(dat.pData);
+        it = it->next;
+    }
+
+    ivz_mix_list_clear(lst);
+    free(lst);
+    lst = NULL;
+}

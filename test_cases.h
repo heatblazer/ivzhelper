@@ -12,5 +12,6 @@ extern void test_case_bst(void);
 
 extern void test_case_mix_adt(void);
 
+extern void test_case_mixup(void);
 
 #endif // TEST_CASES_H
