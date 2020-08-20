@@ -99,6 +99,14 @@ static const char __attribute__((unused))                                       
         }                                                                       \
         return NULL;                                                            \
     }                                                                           \
+                                                                                \
+    NS##_##N##_t NS##_##N##_sinit(void)                                        \
+    {                                                                           \
+        NS##_##N##_t pN = {0, 0, NULL};                                         \
+        pN.pData = (T*)calloc(INITSIZE, sizeof(T));                             \
+        pN.size = INITSIZE;                                                     \
+        return pN;                                                              \
+    }
 
 
 #endif // DYNARRAY_T_H
