@@ -99,8 +99,6 @@ static const char __attribute__((unused))                                       
         }                                                                       \
         return NULL;                                                            \
     }                                                                           \
-                                                                                \
-    void NS##_##N##_foo(void) { printf("foooooo \r\n");}
 
 
 #endif // DYNARRAY_T_H

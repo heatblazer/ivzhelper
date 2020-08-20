@@ -33,10 +33,7 @@ str_cmp_grt(str_t a, str_t b) {return strcmp(a.data, b.data) == 0 ? 1 : 0;}
 
 
 
-#if 1
 LLIST(ivz, int, test_list);
-
-
 void test_case_llist()
 {
 
@@ -84,10 +81,8 @@ void test_case_llist()
     l = NULL;
 }
 
-#endif
+
 DARRAY(ivz, str_t, test_array, 100);
-
-
 void test_case_darray()
 {
     ivz_test_array_t* arr = ivz_test_array_init();
@@ -161,8 +156,6 @@ void test_case_bheap()
         printf("[%s]\r\n", nsivz_myheap_arr_getat(i, it->array)->data);
     }
 
-    nsivz_myheap_arr_foo();
-
     //nsivz_myheap_max_heapify(10, it, b);
     nsivz_myheap_cleanup(&it);
 
@@ -172,7 +165,6 @@ void test_case_bheap()
 
 DARRAY(ivz, int, test_mix, 100);
 
-#if 0
 LLIST(ivz, ivz_test_mix_t,  test_list_mix);
 
 void test_case_mix_adt()
@@ -213,11 +205,9 @@ void test_case_mix_adt()
 
     free(lst);
 }
-#endif
+
 
 BTREE(ivz, int, btree);
-
-
 
 static ivz_btree_CMP_int btreecmp =
     {.__lt__= &fnlt, .__eq__ = &fneq, .__gt__ = &fngt};
