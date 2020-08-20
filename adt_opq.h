@@ -19,6 +19,8 @@ interface for the data structures
                                                                                 \
     extern struct NS##_##N##_t* NS##_##N##_init(void);                          \
                                                                                 \
+    extern struct NS##_##N##_t NS##_##N##_sinit(void);                          \
+                                                                                \
     extern void NS##_##N##_cleanup(struct NS##_##N##_t** _this);                \
                                                                                 \
     extern T* NS##_##N##_find_if                                                \
