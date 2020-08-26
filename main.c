@@ -1,7 +1,7 @@
 #include "test_cases.h"
 #include "linux-commands.h"
 #include <stdio.h>
-
+#include <string.h>
 int main(void)
 {
 #if 0
@@ -23,6 +23,7 @@ int main(void)
     test_case_bst();
 #else
 //    ls_l();
+
     test_case_mixup();
 
 #endif
