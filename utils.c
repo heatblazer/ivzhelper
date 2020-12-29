@@ -2,8 +2,8 @@
 #include "dynarray_t.h"
 #include <string.h>
 
-DARRAY(utils, string_t, str_darray, 10)
-
+//DARRAY(utils, string_t, str_darray, 10)
+DARRAY(utils, string_t, str_darray, 10);
 
 static void split_ss(const char* src,const char* pattern, struct utils_str_darray_t* vec)
 {

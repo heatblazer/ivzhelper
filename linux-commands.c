@@ -2,7 +2,7 @@
 #include "dynarray_t.h"
 #include <string.h>
 #include <stdlib.h>
-
+#if 0
 
 DARRAY(ivz, string_t, dnf_str_array, 100);
 
@@ -40,3 +40,4 @@ void ls_l()
     CLEANUP(ivz, dnf_str_array, arr, free);
 
 }
+#endif

@@ -24,7 +24,7 @@ int main(void)
 #else
 //    ls_l();
 
-    test_case_mixup();
+    //test_case_mixup();
 
 #endif
 }

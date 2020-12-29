@@ -1,4 +1,5 @@
 #include "test_cases.h"
+#if 0
 #include "btree_t.h"
 #include "dynarray_t.h"
 #include "bheap_t.h"
@@ -298,3 +299,4 @@ void test_case_mixup()
     free(lst);
     lst = NULL;
 }
+#endif

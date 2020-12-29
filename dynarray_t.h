@@ -9,18 +9,18 @@
     IFACE(NS, T, N);                                                          \
 static const char __attribute__((unused))                                       \
             NS##_##N##_sassertsizeless[INITSIZE <=0 ? -1 : 1];                  \
-    typedef struct NS##_##N##_t                                                 \
+    struct NS##_##N##_t                                                 \
     {                                                                           \
         size_t size, count;                                                     \
         T* pData;                                                               \
         NS##_##N##_CMP_##T cmpfns;                                              \
-    } NS##_##N##_t;                                                             \
+    };                                                                          \
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-     NS##_##N##_t* NS##_##N##_init(void)                                        \
+    struct NS##_##N##_t* NS##_##N##_init(void)                                        \
     {                                                                           \
-        NS##_##N##_t* pN = NEW_(NS, N, malloc) ;                                \
+        struct NS##_##N##_t* pN = NEW_(NS, N, malloc) ;                         \
         if (!pN) return NULL;                                                   \
         else {                                                                  \
             pN->pData = (T*)calloc(INITSIZE, sizeof(T));                        \
@@ -33,7 +33,7 @@ static const char __attribute__((unused))                                       
             }                                                                   \
     }                                                                           \
                                                                                 \
-    static void NS##_##N##_wiffull(NS##_##N##_t* _this)                         \
+    static void NS##_##N##_wiffull(struct NS##_##N##_t* _this)                  \
     {                                                                           \
         if (!(_this->count < _this->size-1)) {                                  \
         T* t = (T*)realloc(_this->pData,                                        \
@@ -45,7 +45,7 @@ static const char __attribute__((unused))                                       
         }                                                                       \
     }                                                                           \
                                                                                 \
-    static void NS##_##N##_resizeto(NS##_##N##_t* _this, size_t ns)             \
+    static void NS##_##N##_resizeto(struct NS##_##N##_t* _this, size_t ns)      \
     {                                                                           \
         if (ns > _this->size-1) {                                               \
         T* t = (T*)realloc(_this->pData,                                        \
@@ -57,21 +57,21 @@ static const char __attribute__((unused))                                       
         }                                                                       \
     }                                                                           \
                                                                                 \
-    static void NS##_##N##_add(T item, NS##_##N##_t* _this)                     \
+    static void NS##_##N##_add(T item, struct NS##_##N##_t* _this)              \
         {                                                                       \
             NS##_##N##_wiffull(_this);                                          \
             *(_this->pData+_this->count) = item;                                \
             _this->count++;                                                     \
         }                                                                       \
                                                                                 \
-    static T* NS##_##N##_getat(size_t idx, NS##_##N##_t* _this)                 \
+    static T* NS##_##N##_getat(size_t idx, struct NS##_##N##_t* _this)          \
     {                                                                           \
         if (idx < _this->count)                                                 \
             return &_this->pData[idx];                                          \
         else return NULL;                                                       \
     }                                                                           \
                                                                                 \
-    void NS##_##N##_cleanup(NS##_##N##_t** _this)                               \
+    void NS##_##N##_cleanup(struct NS##_##N##_t** _this)                        \
     {                                                                           \
         if (*_this) {                                                           \
             if ((*_this)->pData)                                                \
@@ -82,7 +82,7 @@ static const char __attribute__((unused))                                       
         }                                                                       \
     }                                                                           \
                                                                                 \
-    static void NS##_##N##_add_at(T item, size_t idx, NS##_##N##_t* _this)      \
+    static void NS##_##N##_add_at(T item, size_t idx, struct NS##_##N##_t* _this)      \
     {                                                                           \
         NS##_##N##_resizeto(_this, idx);                                        \
         *(_this->pData+idx) = item;                                             \
@@ -90,7 +90,7 @@ static const char __attribute__((unused))                                       
     }                                                                           \
                                                                                 \
     T* NS##_##N##_find_if                                                       \
-    (T item, NS##_##N##_t* _this, NS##_##N##_T##_cmpfn cmp)                     \
+    (T item, struct NS##_##N##_t* _this, NS##_##N##_T##_cmpfn cmp)              \
     {                                                                           \
         size_t i;                                                               \
         for(i=0; i < _this->count; i++) {                                       \
@@ -100,9 +100,10 @@ static const char __attribute__((unused))                                       
         return NULL;                                                            \
     }                                                                           \
                                                                                 \
+    struct                                                                      \
     NS##_##N##_t NS##_##N##_sinit(void)                                        \
     {                                                                           \
-        NS##_##N##_t pN = {0, 0, NULL};                                         \
+        struct NS##_##N##_t pN = {0, 0, NULL};                                  \
         pN.pData = (T*)calloc(INITSIZE, sizeof(T));                             \
         pN.size = INITSIZE;                                                     \
         return pN;                                                              \

@@ -1,7 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include "adt_opq.h"
-#include "dynarray_t.h"
 #include <stdio.h>
 
 typedef struct {
