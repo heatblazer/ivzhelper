@@ -22,7 +22,7 @@ int main(void)
     printf("\r\ntest bin tree\r\n");
     test_case_bst();
 #else
-//    ls_l();
+    dnf_hist();
 
     //test_case_mixup();
 
