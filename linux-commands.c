@@ -2,8 +2,9 @@
 #include "dynarray_t.h"
 #include <string.h>
 #include <stdlib.h>
-#if 1
 
+//emulates a namespace, then type, then name of the cotnainer,
+//and some init opts like default size
 DARRAY(ivz, string_t, dnf_str_array, 100);
 
 typedef struct dnf_etnry_t
@@ -51,12 +52,6 @@ void dnf_hist()
             drec.altered = out[4];
             ivz_dnf_entry_t_array_add(drec, pDnf);
         }
-#if 0
-        for(j=0; j < cnt; j++) {
-            printf("[%s]", out[j].buff);
-        }
-        printf("###########\r\n");
-#endif
         free(out);
     }
 
@@ -71,4 +66,3 @@ void dnf_hist()
     CLEANUP(ivz, dnf_str_array, arr, free);
     CLEANUP(ivz, dnf_entry_t_array, pDnf, free);
 }
-#endif

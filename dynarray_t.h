@@ -6,10 +6,10 @@
 
 //in case no initsize is 0 or less we will assert
 #define DARRAY(NS, T, N, INITSIZE)                                              \
-    IFACE(NS, T, N);                                                          \
+    IFACE(NS, T, N);                                                            \
 static const char __attribute__((unused))                                       \
             NS##_##N##_sassertsizeless[INITSIZE <=0 ? -1 : 1];                  \
-    struct NS##_##N##_t                                                 \
+    struct NS##_##N##_t                                                         \
     {                                                                           \
         size_t size, count;                                                     \
         T* pData;                                                               \
@@ -18,7 +18,7 @@ static const char __attribute__((unused))                                       
                                                                                 \
     typedef int (*T##cmpfn)(T, T);                                              \
                                                                                 \
-    struct NS##_##N##_t* NS##_##N##_init(void)                                        \
+    struct NS##_##N##_t* NS##_##N##_init(void)                                  \
     {                                                                           \
         struct NS##_##N##_t* pN = NEW_(NS, N, malloc) ;                         \
         if (!pN) return NULL;                                                   \
@@ -82,7 +82,7 @@ static const char __attribute__((unused))                                       
         }                                                                       \
     }                                                                           \
                                                                                 \
-    static void NS##_##N##_add_at(T item, size_t idx, struct NS##_##N##_t* _this)      \
+    static void NS##_##N##_add_at(T item, size_t idx, struct NS##_##N##_t* _this)\
     {                                                                           \
         NS##_##N##_resizeto(_this, idx);                                        \
         *(_this->pData+idx) = item;                                             \
@@ -101,7 +101,7 @@ static const char __attribute__((unused))                                       
     }                                                                           \
                                                                                 \
     struct                                                                      \
-    NS##_##N##_t NS##_##N##_sinit(void)                                        \
+    NS##_##N##_t NS##_##N##_sinit(void)                                         \
     {                                                                           \
         struct NS##_##N##_t pN = {0, 0, NULL};                                  \
         pN.pData = (T*)calloc(INITSIZE, sizeof(T));                             \
