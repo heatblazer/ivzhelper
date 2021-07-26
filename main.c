@@ -2,7 +2,7 @@
 #include "linux-commands.h"
 #include <stdio.h>
 #include <string.h>
-int main(void)
+int main(int argc, char** argv)
 {
 #if 0
     printf("\r\nlist testcase\r\n");
@@ -22,7 +22,11 @@ int main(void)
     printf("\r\ntest bin tree\r\n");
     test_case_bst();
 #else
-    dnf_hist();
+    if (argc != 2) {
+        fprintf(stderr, "Err usage: pass a file with `dnf hist` data\r\n");
+        return 1;
+    }
+    dnf_hist(argv[1]);
 
     //test_case_mixup();
 

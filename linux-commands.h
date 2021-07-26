@@ -3,6 +3,6 @@
 
 
 
-extern void dnf_hist(void);
+extern void dnf_hist(const char* );
 
 #endif // LINUXCOMMANDS_H
